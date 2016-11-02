@@ -1,3 +1,30 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'   
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter() 
+        
+        maven { 
+            url 'https://raw.githubusercontent.com/KocomojoLLC/KocomojoSDK-Android/master'
+            credentials {
+                username "$mavenUser"
+                password "$mavenPassword"
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -17,5 +44,5 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.facebook.react:react-native:+"
+    compile "com.facebook.react:react-native:0.34.1"
 }
