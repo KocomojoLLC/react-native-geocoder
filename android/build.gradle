@@ -1,3 +1,5 @@
+apply plugin: "maven"
+
 buildscript {
     repositories {
         jcenter()
@@ -11,7 +13,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter() 
-        
+
         maven { 
             url 'https://raw.githubusercontent.com/KocomojoLLC/KocomojoSDK-Android/master'
             credentials {
@@ -45,4 +47,17 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.facebook.react:react-native:0.34.1"
+}
+
+
+uploadArchives {
+    repositories.mavenDeployer {
+        def deployPath = file(getProperty('aar.deployPath'))
+        repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            groupId 'com.devfd'
+            artifactId 'react-native-geocoder'
+            version "0.4.5"
+        }
+    }
 }
